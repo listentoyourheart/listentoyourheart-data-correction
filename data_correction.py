@@ -2,7 +2,7 @@
 In this code, intervals between detected beats are here referred to 
 as RRIs (R peak – to R peak – intervals), as is applicable
 for electrocardiogram (ECG) data. The actual correct term when using 
-photopletysmography (PPG) data is IBIs (Interbeat Intervals).”
+photopletysmography (PPG) data is IBIs (Interbeat Intervals).
 """
 
 import pandas as pd
@@ -34,8 +34,9 @@ into a matrix where
 data = df.to_numpy()
 
 """
-The function 'mad_detection' defines the quotient filter which indicates all RRI's that 
-differ more than a multiplicative factor alpha with one of its neigbouring values.
+The function 'mad_detection' defines the quotient filter which indicates 
+all RRI's that differ more than a multiplicative factor alpha (or 1 + alpha) 
+with one of its neigbouring values.
 
 It replaces such NNI's with a NaN-value
 """
@@ -228,6 +229,6 @@ df_new_stats = pd.DataFrame(stats_info,columns=stats_col_names)
 # Create an Excel writer object
 with pd.ExcelWriter('LL_CumData_RRI_corrected.xlsx') as writer:
     # Write each dataframe to a different sheet
-    df_new.to_excel(writer, sheet_name='CumData_RRI, alpha=%.2f' % alpha, index=False)
+    df_new.to_excel(writer, sheet_name='CumData_RRI_corrected, alpha=%.2f' % alpha, index=False)
     df_new_stats.to_excel(writer, sheet_name='Add-del counts, alpha=%.2f' % alpha, index=False)
     
